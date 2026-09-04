@@ -1,0 +1,76 @@
+{
+  "$id": "https://learning-wiki.local/schemas/knowledge-update-candidate.schema.json",
+  "additionalProperties": true,
+  "description": "_System/Learning Wiki/UpdateCandidates/{candidate_id}.yaml。\n\n学习结果只能创建核验候选，由人工审阅后经 ChangeProposal 修改 Wiki。",
+  "properties": {
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "detail": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Detail"
+    },
+    "learning_event_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Learning Event Ids",
+      "type": "array"
+    },
+    "reason": {
+      "enum": [
+        "evidence_self_contradictory",
+        "rubric_conflicts_with_wiki",
+        "source_version_changed_conclusion",
+        "repeated_correct_answers_judged_wrong",
+        "application_evidence_conflicts_with_current_claim"
+      ],
+      "title": "Reason",
+      "type": "string"
+    },
+    "related_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Related Claim Ids",
+      "type": "array"
+    },
+    "related_note_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Related Note Ids",
+      "type": "array"
+    },
+    "requires_human_review": {
+      "default": true,
+      "title": "Requires Human Review",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "created_at",
+    "reason"
+  ],
+  "title": "KnowledgeUpdateCandidate",
+  "type": "object"
+}

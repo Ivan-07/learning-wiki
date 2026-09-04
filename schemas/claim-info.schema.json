@@ -1,0 +1,68 @@
+{
+  "$id": "https://learning-wiki.local/schemas/claim-info.schema.json",
+  "additionalProperties": true,
+  "description": "从 Wiki Markdown 解析出的 Claim Block（lint/索引用）。",
+  "properties": {
+    "citations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "claim_block_id": {
+      "title": "Claim Block Id",
+      "type": "string"
+    },
+    "claim_status": {
+      "default": "supported",
+      "enum": [
+        "supported",
+        "inference",
+        "disputed",
+        "superseded"
+      ],
+      "title": "Claim Status",
+      "type": "string"
+    },
+    "note_id": {
+      "title": "Note Id",
+      "type": "string"
+    },
+    "review_after": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review After"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "valid_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid At"
+    }
+  },
+  "required": [
+    "claim_block_id",
+    "note_id",
+    "text"
+  ],
+  "title": "ClaimInfo",
+  "type": "object"
+}

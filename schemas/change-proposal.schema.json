@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "ProposalOperation": {
+      "additionalProperties": true,
+      "properties": {
+        "base_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Hash"
+        },
+        "content": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content"
+        },
+        "operation": {
+          "enum": [
+            "create",
+            "patch",
+            "move_to_archive"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "patch": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Patch"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "result_hash": {
+          "title": "Result Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation",
+        "path",
+        "result_hash"
+      ],
+      "title": "ProposalOperation",
+      "type": "object"
+    },
+    "ProposalValidation": {
+      "additionalProperties": true,
+      "properties": {
+        "base_hashes_valid": {
+          "default": false,
+          "title": "Base Hashes Valid",
+          "type": "boolean"
+        },
+        "citations_valid": {
+          "default": false,
+          "title": "Citations Valid",
+          "type": "boolean"
+        },
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "paths_valid": {
+          "default": false,
+          "title": "Paths Valid",
+          "type": "boolean"
+        },
+        "result_hashes_valid": {
+          "default": false,
+          "title": "Result Hashes Valid",
+          "type": "boolean"
+        },
+        "schema_valid": {
+          "default": false,
+          "title": "Schema Valid",
+          "type": "boolean"
+        }
+      },
+      "title": "ProposalValidation",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/change-proposal.schema.json",
+  "additionalProperties": true,
+  "description": "_System/Learning Wiki/Proposals/pending/{proposal_id}.json。",
+  "properties": {
+    "cited_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Cited Evidence Ids",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "default": "agent",
+      "enum": [
+        "agent",
+        "user"
+      ],
+      "title": "Created By",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/ProposalOperation"
+      },
+      "title": "Operations",
+      "type": "array"
+    },
+    "proposal_id": {
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "risk": {
+      "default": "medium",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Risk",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "default": "pending",
+      "enum": [
+        "pending",
+        "applying",
+        "applied",
+        "rejected",
+        "expired_conflict",
+        "interrupted",
+        "needs_manual"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "trigger_source_versions": {
+      "items": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "title": "Trigger Source Versions",
+      "type": "array"
+    },
+    "validation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProposalValidation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "proposal_id",
+    "created_at",
+    "reason",
+    "operations"
+  ],
+  "title": "ChangeProposal",
+  "type": "object"
+}

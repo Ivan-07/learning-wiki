@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "MisconceptionIntervention": {
+      "additionalProperties": true,
+      "properties": {
+        "activity": {
+          "title": "Activity",
+          "type": "string"
+        },
+        "result": {
+          "default": "recurred",
+          "enum": [
+            "recurred",
+            "improving",
+            "resolved"
+          ],
+          "title": "Result",
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity"
+      ],
+      "title": "MisconceptionIntervention",
+      "type": "object"
+    },
+    "MisconceptionObservations": {
+      "additionalProperties": true,
+      "properties": {
+        "contexts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Contexts",
+          "type": "array"
+        },
+        "first_event_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "First Event Id"
+        },
+        "last_event_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Event Id"
+        },
+        "max_confidence_when_wrong": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Confidence When Wrong"
+        },
+        "occurrences": {
+          "default": 0,
+          "title": "Occurrences",
+          "type": "integer"
+        }
+      },
+      "title": "MisconceptionObservations",
+      "type": "object"
+    },
+    "MisconceptionResolutionPolicy": {
+      "additionalProperties": true,
+      "properties": {
+        "require_closed_book": {
+          "default": true,
+          "title": "Require Closed Book",
+          "type": "boolean"
+        },
+        "require_two_non_identical_contexts": {
+          "default": true,
+          "title": "Require Two Non Identical Contexts",
+          "type": "boolean"
+        }
+      },
+      "title": "MisconceptionResolutionPolicy",
+      "type": "object"
+    },
+    "MisconceptionStatement": {
+      "additionalProperties": true,
+      "description": "用户原本相信什么，以及正确表述（correction 必须引用 Evidence）。",
+      "properties": {
+        "correction": {
+          "title": "Correction",
+          "type": "string"
+        },
+        "error_type": {
+          "enum": [
+            "fact_gap",
+            "causal_gap",
+            "boundary_error",
+            "concept_confusion",
+            "proxy_confusion",
+            "overgeneralization",
+            "unsupported_inference",
+            "procedure_error",
+            "application_mismatch",
+            "outdated_knowledge"
+          ],
+          "title": "Error Type",
+          "type": "string"
+        },
+        "user_belief": {
+          "title": "User Belief",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_belief",
+        "correction",
+        "error_type"
+      ],
+      "title": "MisconceptionStatement",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/misconception.schema.json",
+  "additionalProperties": true,
+  "description": "40 Learning/Misconceptions/{misconception_id}.yaml（§4.3）。",
+  "properties": {
+    "concept_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Concept Ids",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "intervention_history": {
+      "items": {
+        "$ref": "#/$defs/MisconceptionIntervention"
+      },
+      "title": "Intervention History",
+      "type": "array"
+    },
+    "misconception_id": {
+      "title": "Misconception Id",
+      "type": "string"
+    },
+    "observations": {
+      "$ref": "#/$defs/MisconceptionObservations"
+    },
+    "resolution_policy": {
+      "$ref": "#/$defs/MisconceptionResolutionPolicy"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "statement": {
+      "$ref": "#/$defs/MisconceptionStatement"
+    },
+    "status": {
+      "default": "candidate",
+      "enum": [
+        "candidate",
+        "open",
+        "improving",
+        "resolved",
+        "recurring"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "misconception_id",
+    "created_at",
+    "statement"
+  ],
+  "title": "Misconception",
+  "type": "object"
+}

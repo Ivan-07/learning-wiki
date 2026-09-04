@@ -1,0 +1,117 @@
+{
+  "$id": "https://learning-wiki.local/schemas/mastery-summary.schema.json",
+  "additionalProperties": true,
+  "description": "可解释掌握摘要（规格 5.6）——没有单一 mastery 百分比。",
+  "properties": {
+    "apply_result": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Apply Result"
+    },
+    "concept_id": {
+      "title": "Concept Id",
+      "type": "string"
+    },
+    "consecutive_successes": {
+      "default": 0,
+      "title": "Consecutive Successes",
+      "type": "integer"
+    },
+    "discriminate_result": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Discriminate Result"
+    },
+    "evidence_event_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Event Ids",
+      "type": "array"
+    },
+    "explain_result": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Explain Result"
+    },
+    "high_confidence_error": {
+      "default": false,
+      "title": "High Confidence Error",
+      "type": "boolean"
+    },
+    "hints_used_last_time": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hints Used Last Time"
+    },
+    "last_closed_book_attempt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Closed Book Attempt"
+    },
+    "next_review_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Review At"
+    },
+    "recall_result": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recall Result"
+    }
+  },
+  "required": [
+    "concept_id"
+  ],
+  "title": "MasterySummary",
+  "type": "object"
+}

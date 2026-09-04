@@ -1,0 +1,73 @@
+{
+  "$id": "https://learning-wiki.local/schemas/evidence.schema.json",
+  "additionalProperties": true,
+  "description": "evidence.jsonl 的一行。绑定 source_id + version_id + content_hash + span_hash。",
+  "properties": {
+    "anchor_end": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Anchor End"
+    },
+    "anchor_start": {
+      "title": "Anchor Start",
+      "type": "string"
+    },
+    "anchor_type": {
+      "default": "paragraph",
+      "title": "Anchor Type",
+      "type": "string"
+    },
+    "content_hash": {
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "evidence_id": {
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "extraction_confidence": {
+      "default": 1.0,
+      "title": "Extraction Confidence",
+      "type": "number"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "span_hash": {
+      "title": "Span Hash",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "version_id": {
+      "title": "Version Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "source_id",
+    "version_id",
+    "content_hash",
+    "span_hash",
+    "anchor_start",
+    "text"
+  ],
+  "title": "EvidenceRef",
+  "type": "object"
+}

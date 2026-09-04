@@ -1,0 +1,135 @@
+{
+  "$defs": {
+    "FilePlanStep": {
+      "additionalProperties": true,
+      "properties": {
+        "action": {
+          "enum": [
+            "create",
+            "patch",
+            "move_to_archive"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "after_ref": {
+          "title": "After Ref",
+          "type": "string"
+        },
+        "base_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Hash"
+        },
+        "before_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before Ref"
+        },
+        "done": {
+          "default": false,
+          "title": "Done",
+          "type": "boolean"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "result_hash": {
+          "title": "Result Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "action",
+        "result_hash",
+        "after_ref"
+      ],
+      "title": "FilePlanStep",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/file-plan.schema.json",
+  "additionalProperties": true,
+  "description": "已验证的文件计划：staging manifest 的模型（状态机权威文件）。",
+  "properties": {
+    "backend": {
+      "const": "local_fsync",
+      "default": "local_fsync",
+      "title": "Backend",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "operation_id": {
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "proposal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposal Id"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "state": {
+      "enum": [
+        "prepared",
+        "applying",
+        "applied",
+        "rolling_back",
+        "rolled_back",
+        "needs_manual"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/FilePlanStep"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "state",
+    "steps",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "FilePlan",
+  "type": "object"
+}

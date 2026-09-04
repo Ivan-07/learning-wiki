@@ -1,0 +1,255 @@
+{
+  "$defs": {
+    "CaptureConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "default_value_state": {
+          "default": "reference",
+          "enum": [
+            "reference",
+            "learn",
+            "apply"
+          ],
+          "title": "Default Value State",
+          "type": "string"
+        },
+        "max_file_size_mb": {
+          "default": 50,
+          "title": "Max File Size Mb",
+          "type": "integer"
+        },
+        "store_original_web_html": {
+          "default": true,
+          "title": "Store Original Web Html",
+          "type": "boolean"
+        }
+      },
+      "title": "CaptureConfig",
+      "type": "object"
+    },
+    "FolderConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "archive": {
+          "default": "90 Archive",
+          "title": "Archive",
+          "type": "string"
+        },
+        "inbox": {
+          "default": "00 Inbox",
+          "title": "Inbox",
+          "type": "string"
+        },
+        "learning": {
+          "default": "40 Learning",
+          "title": "Learning",
+          "type": "string"
+        },
+        "projects": {
+          "default": "50 Projects",
+          "title": "Projects",
+          "type": "string"
+        },
+        "sources": {
+          "default": "10 Sources",
+          "title": "Sources",
+          "type": "string"
+        },
+        "system": {
+          "default": "_System/Learning Wiki",
+          "title": "System",
+          "type": "string"
+        },
+        "thoughts": {
+          "default": "20 Thoughts",
+          "title": "Thoughts",
+          "type": "string"
+        },
+        "wiki": {
+          "default": "30 Wiki",
+          "title": "Wiki",
+          "type": "string"
+        }
+      },
+      "title": "FolderConfig",
+      "type": "object"
+    },
+    "GitConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "auto_commit_applied_proposals": {
+          "default": false,
+          "title": "Auto Commit Applied Proposals",
+          "type": "boolean"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "include_source_originals": {
+          "default": false,
+          "title": "Include Source Originals",
+          "type": "boolean"
+        }
+      },
+      "title": "GitConfig",
+      "type": "object"
+    },
+    "LearningConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "daily_review_limit": {
+          "default": 10,
+          "title": "Daily Review Limit",
+          "type": "integer"
+        },
+        "dashboard_priority_limit": {
+          "default": 3,
+          "title": "Dashboard Priority Limit",
+          "type": "integer"
+        },
+        "default_intervals_days": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Default Intervals Days",
+          "type": "array"
+        },
+        "require_closed_book_attempt": {
+          "default": true,
+          "title": "Require Closed Book Attempt",
+          "type": "boolean"
+        }
+      },
+      "title": "LearningConfig",
+      "type": "object"
+    },
+    "LibraryConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "folders": {
+          "$ref": "#/$defs/FolderConfig"
+        },
+        "language": {
+          "default": "zh-CN",
+          "title": "Language",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "Asia/Shanghai",
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "title": "LibraryConfig",
+      "type": "object"
+    },
+    "PrivacyConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "cloud_context_requires_preview": {
+          "default": true,
+          "title": "Cloud Context Requires Preview",
+          "type": "boolean"
+        },
+        "excluded_from_agent": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Excluded From Agent",
+          "type": "array"
+        }
+      },
+      "title": "PrivacyConfig",
+      "type": "object"
+    },
+    "RetrievalConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "embeddings_enabled": {
+          "default": false,
+          "title": "Embeddings Enabled",
+          "type": "boolean"
+        },
+        "index_projects": {
+          "default": true,
+          "title": "Index Projects",
+          "type": "boolean"
+        },
+        "index_sources": {
+          "default": true,
+          "title": "Index Sources",
+          "type": "boolean"
+        },
+        "index_thoughts": {
+          "default": false,
+          "title": "Index Thoughts",
+          "type": "boolean"
+        },
+        "index_wiki": {
+          "default": true,
+          "title": "Index Wiki",
+          "type": "boolean"
+        }
+      },
+      "title": "RetrievalConfig",
+      "type": "object"
+    },
+    "WikiConfig": {
+      "additionalProperties": true,
+      "properties": {
+        "auto_apply": {
+          "default": false,
+          "title": "Auto Apply",
+          "type": "boolean"
+        },
+        "max_proposed_claims_per_run": {
+          "default": 3,
+          "title": "Max Proposed Claims Per Run",
+          "type": "integer"
+        },
+        "require_citations_for_factual_ai_content": {
+          "default": true,
+          "title": "Require Citations For Factual Ai Content",
+          "type": "boolean"
+        }
+      },
+      "title": "WikiConfig",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/vault-config.schema.json",
+  "additionalProperties": true,
+  "description": "_System/Learning Wiki/Config.yaml。",
+  "properties": {
+    "capture": {
+      "$ref": "#/$defs/CaptureConfig"
+    },
+    "git": {
+      "$ref": "#/$defs/GitConfig"
+    },
+    "learning": {
+      "$ref": "#/$defs/LearningConfig"
+    },
+    "library": {
+      "$ref": "#/$defs/LibraryConfig"
+    },
+    "privacy": {
+      "$ref": "#/$defs/PrivacyConfig"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/RetrievalConfig"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "wiki": {
+      "$ref": "#/$defs/WikiConfig"
+    }
+  },
+  "title": "VaultConfig",
+  "type": "object"
+}

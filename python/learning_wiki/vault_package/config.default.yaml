@@ -1,0 +1,46 @@
+schema_version: 1
+
+library:
+  language: zh-CN
+  timezone: Asia/Shanghai
+  folders:
+    inbox: 00 Inbox
+    sources: 10 Sources
+    thoughts: 20 Thoughts
+    wiki: 30 Wiki
+    learning: 40 Learning
+    projects: 50 Projects
+    archive: 90 Archive
+    system: _System/Learning Wiki
+
+capture:
+  store_original_web_html: true
+  default_value_state: reference
+  max_file_size_mb: 50
+
+retrieval:
+  index_sources: true
+  index_wiki: true
+  index_thoughts: false
+  index_projects: true
+  embeddings_enabled: false
+
+wiki:
+  require_citations_for_factual_ai_content: true
+  auto_apply: false
+  max_proposed_claims_per_run: 3
+
+learning:
+  daily_review_limit: 10
+  dashboard_priority_limit: 3
+  require_closed_book_attempt: true
+  default_intervals_days: [1, 3, 7, 21, 45, 90]
+
+git:
+  enabled: true
+  auto_commit_applied_proposals: false
+  include_source_originals: false
+
+privacy:
+  cloud_context_requires_preview: true
+  excluded_from_agent: []

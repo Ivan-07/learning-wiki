@@ -1,0 +1,492 @@
+{
+  "$defs": {
+    "AssessorInfo": {
+      "additionalProperties": true,
+      "properties": {
+        "model": {
+          "default": "unknown",
+          "title": "Model",
+          "type": "string"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Version"
+        },
+        "self_reported": {
+          "default": true,
+          "title": "Self Reported",
+          "type": "boolean"
+        },
+        "type": {
+          "default": "agent",
+          "enum": [
+            "agent",
+            "user"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "title": "AssessorInfo",
+      "type": "object"
+    },
+    "RubricItem": {
+      "additionalProperties": true,
+      "properties": {
+        "item": {
+          "title": "Item",
+          "type": "string"
+        },
+        "met": {
+          "title": "Met",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "item",
+        "met"
+      ],
+      "title": "RubricItem",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/learning-event.schema.json",
+  "additionalProperties": true,
+  "description": "学习事件（追加型，不修改历史）。\n\nattempt_submitted 与 feedback_recorded 共用本模型：\n反馈前回答字段只在 attempt 事件中填，result/rubric 只在 feedback 事件中填。\n学习机制升级后的事件（goal/misconception/challenge/application 等）同样\n共用本模型，按 event_type 填写对应字段组；历史事件不可原地修改。",
+  "properties": {
+    "action_taken": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Action Taken"
+    },
+    "assessor": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AssessorInfo"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "capability_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability Id"
+    },
+    "challenge_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Challenge Id"
+    },
+    "confidence": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confidence"
+    },
+    "context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context"
+    },
+    "diagnostic_summary": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Diagnostic Summary"
+    },
+    "end_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End Reason"
+    },
+    "error_type": {
+      "anyOf": [
+        {
+          "enum": [
+            "fact_gap",
+            "causal_gap",
+            "boundary_error",
+            "concept_confusion",
+            "proxy_confusion",
+            "overgeneralization",
+            "unsupported_inference",
+            "procedure_error",
+            "application_mismatch",
+            "outdated_knowledge"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Type"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "enum": [
+        "attempt_submitted",
+        "confidence_recorded",
+        "hint_used",
+        "feedback_recorded",
+        "review_scheduled",
+        "application_recorded",
+        "goal_created",
+        "goal_activated",
+        "goal_paused",
+        "goal_abandoned",
+        "diagnostic_started",
+        "diagnostic_completed",
+        "misconception_proposed",
+        "misconception_confirmed",
+        "misconception_state_changed",
+        "capability_evidence_added",
+        "challenge_created",
+        "application_prediction_recorded",
+        "application_outcome_recorded",
+        "knowledge_revalidation_required",
+        "goal_achieved",
+        "session_started",
+        "session_ended"
+      ],
+      "title": "Event Type",
+      "type": "string"
+    },
+    "feedback": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Feedback"
+    },
+    "goal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Goal Id"
+    },
+    "hints_used": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hints Used"
+    },
+    "knowledge_update_candidate": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Knowledge Update Candidate"
+    },
+    "learning_object_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Learning Object Id"
+    },
+    "lessons": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lessons"
+    },
+    "level": {
+      "anyOf": [
+        {
+          "enum": [
+            "unseen",
+            "recognize",
+            "recall",
+            "explain",
+            "discriminate",
+            "near_transfer",
+            "far_transfer",
+            "real_application"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Level"
+    },
+    "misconception_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Misconception Id"
+    },
+    "next_review_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Review At"
+    },
+    "occurred_at": {
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "outcome": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Outcome"
+    },
+    "predicted_outcome": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Predicted Outcome"
+    },
+    "reasoning_before_result": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reasoning Before Result"
+    },
+    "response_before_feedback": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Response Before Feedback"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "enum": [
+            "successful",
+            "partial",
+            "failed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Result"
+    },
+    "rubric_results": {
+      "items": {
+        "$ref": "#/$defs/RubricItem"
+      },
+      "title": "Rubric Results",
+      "type": "array"
+    },
+    "schedule_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Schedule Reason"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "selected_knowledge": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Selected Knowledge",
+      "type": "array"
+    },
+    "session_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Session Id"
+    },
+    "source_opened_before_answer": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Opened Before Answer"
+    },
+    "user_assessment": {
+      "anyOf": [
+        {
+          "enum": [
+            "successful",
+            "partial_success",
+            "failed_execution",
+            "wrong_model",
+            "invalid_assumption",
+            "knowledge_conflict",
+            "inconclusive"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "User Assessment"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type",
+    "occurred_at"
+  ],
+  "title": "LearningEvent",
+  "type": "object"
+}

@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "ChallengeContext": {
+      "additionalProperties": true,
+      "properties": {
+        "constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "problem": {
+          "title": "Problem",
+          "type": "string"
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Project Id"
+        }
+      },
+      "required": [
+        "problem"
+      ],
+      "title": "ChallengeContext",
+      "type": "object"
+    },
+    "ChallengeKnowledgeRefs": {
+      "additionalProperties": true,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "note_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Note Ids",
+          "type": "array"
+        }
+      },
+      "title": "ChallengeKnowledgeRefs",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/application-challenge.schema.json",
+  "additionalProperties": true,
+  "description": "40 Learning/Challenges/{challenge_id}.yaml（§5.3）。",
+  "properties": {
+    "capability_id": {
+      "title": "Capability Id",
+      "type": "string"
+    },
+    "challenge_id": {
+      "title": "Challenge Id",
+      "type": "string"
+    },
+    "context": {
+      "$ref": "#/$defs/ChallengeContext"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "goal_id": {
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "knowledge_refs": {
+      "$ref": "#/$defs/ChallengeKnowledgeRefs"
+    },
+    "required_reasoning": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Reasoning",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "completed",
+        "abandoned"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "success_criteria": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Success Criteria",
+      "type": "array"
+    },
+    "type": {
+      "default": "real_project",
+      "enum": [
+        "real_project",
+        "near_transfer_task",
+        "far_transfer_task"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "challenge_id",
+    "goal_id",
+    "capability_id",
+    "created_at",
+    "context"
+  ],
+  "title": "ApplicationChallenge",
+  "type": "object"
+}

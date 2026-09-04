@@ -1,0 +1,149 @@
+{
+  "$id": "https://learning-wiki.local/schemas/inbox-item.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error"
+    },
+    "input_type": {
+      "enum": [
+        "text",
+        "file",
+        "url"
+      ],
+      "title": "Input Type",
+      "type": "string"
+    },
+    "item_id": {
+      "title": "Item Id",
+      "type": "string"
+    },
+    "payload": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Payload"
+    },
+    "payload_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Payload Path"
+    },
+    "processed_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Processed At"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Id"
+    },
+    "state": {
+      "default": "new",
+      "enum": [
+        "new",
+        "processing",
+        "captured",
+        "failed",
+        "discarded"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "value_state": {
+      "anyOf": [
+        {
+          "enum": [
+            "reference",
+            "learn",
+            "apply",
+            "discard"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value State"
+    },
+    "version_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Version Id"
+    },
+    "why_saved": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Why Saved"
+    }
+  },
+  "required": [
+    "item_id",
+    "input_type",
+    "created_at"
+  ],
+  "title": "InboxItem",
+  "type": "object"
+}

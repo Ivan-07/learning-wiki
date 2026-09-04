@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "RawBlock": {
+      "additionalProperties": true,
+      "description": "提取阶段产出的一个可引用内容块（尚未分配 Evidence ID）。",
+      "properties": {
+        "anchor_type": {
+          "enum": [
+            "heading",
+            "paragraph",
+            "list_item",
+            "quote",
+            "code"
+          ],
+          "title": "Anchor Type",
+          "type": "string"
+        },
+        "extraction_confidence": {
+          "default": 1.0,
+          "title": "Extraction Confidence",
+          "type": "number"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "anchor_type",
+        "text"
+      ],
+      "title": "RawBlock",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/extraction-result.schema.json",
+  "additionalProperties": true,
+  "description": "CaptureAdapter.extract 的返回值。",
+  "properties": {
+    "author": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author"
+    },
+    "blocked_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Blocked Reason"
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/$defs/RawBlock"
+      },
+      "title": "Blocks",
+      "type": "array"
+    },
+    "canonical_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Canonical Url"
+    },
+    "content_markdown": {
+      "title": "Content Markdown",
+      "type": "string"
+    },
+    "extraction_method": {
+      "title": "Extraction Method",
+      "type": "string"
+    },
+    "extraction_quality": {
+      "default": 1.0,
+      "title": "Extraction Quality",
+      "type": "number"
+    },
+    "original_bytes": {
+      "anyOf": [
+        {
+          "format": "binary",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Original Bytes"
+    },
+    "original_filename": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Original Filename"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    }
+  },
+  "required": [
+    "content_markdown",
+    "extraction_method"
+  ],
+  "title": "ExtractionResult",
+  "type": "object"
+}

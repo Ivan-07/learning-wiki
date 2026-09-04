@@ -1,0 +1,72 @@
+{
+  "$id": "https://learning-wiki.local/schemas/operation-record.schema.json",
+  "additionalProperties": true,
+  "description": "Operations/*.jsonl 的一行（审计日志；恢复以 staging manifest 为准）。",
+  "properties": {
+    "detail": {
+      "additionalProperties": true,
+      "title": "Detail",
+      "type": "object"
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Finished At"
+    },
+    "kind": {
+      "enum": [
+        "capture",
+        "apply",
+        "rebuild",
+        "migrate",
+        "recovery"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "operation_id": {
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "proposal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposal Id"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "state": {
+      "title": "State",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "kind",
+    "state",
+    "started_at"
+  ],
+  "title": "OperationRecord",
+  "type": "object"
+}

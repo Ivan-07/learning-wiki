@@ -1,0 +1,198 @@
+{
+  "$defs": {
+    "CompletionPolicy": {
+      "additionalProperties": true,
+      "description": "完成策略：进入 achieved 的确定性条件（§3.6）。",
+      "properties": {
+        "max_evidence_age_days": {
+          "default": 90,
+          "title": "Max Evidence Age Days",
+          "type": "integer"
+        },
+        "require_all_capabilities": {
+          "default": true,
+          "title": "Require All Capabilities",
+          "type": "boolean"
+        },
+        "require_closed_book": {
+          "default": true,
+          "title": "Require Closed Book",
+          "type": "boolean"
+        },
+        "require_user_confirmed_application": {
+          "default": true,
+          "title": "Require User Confirmed Application",
+          "type": "boolean"
+        }
+      },
+      "title": "CompletionPolicy",
+      "type": "object"
+    },
+    "GoalCapability": {
+      "additionalProperties": true,
+      "description": "目标内的一项能力：以可观察行为定义（§3.1）。",
+      "properties": {
+        "behavior": {
+          "title": "Behavior",
+          "type": "string"
+        },
+        "capability_id": {
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "required_level": {
+          "default": "explain",
+          "enum": [
+            "unseen",
+            "recognize",
+            "recall",
+            "explain",
+            "discriminate",
+            "near_transfer",
+            "far_transfer",
+            "real_application"
+          ],
+          "title": "Required Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "capability_id",
+        "behavior"
+      ],
+      "title": "GoalCapability",
+      "type": "object"
+    },
+    "GoalContext": {
+      "additionalProperties": true,
+      "properties": {
+        "motivation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Motivation"
+        },
+        "project_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Project Ids",
+          "type": "array"
+        }
+      },
+      "title": "GoalContext",
+      "type": "object"
+    },
+    "GoalKnowledgeDependencies": {
+      "additionalProperties": true,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "note_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Note Ids",
+          "type": "array"
+        }
+      },
+      "title": "GoalKnowledgeDependencies",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/goal.schema.json",
+  "additionalProperties": true,
+  "description": "40 Learning/Goals/{goal_id}.yaml。",
+  "properties": {
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/GoalCapability"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "completion_policy": {
+      "$ref": "#/$defs/CompletionPolicy"
+    },
+    "context": {
+      "$ref": "#/$defs/GoalContext"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "goal_id": {
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "importance": {
+      "default": "medium",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Importance",
+      "type": "string"
+    },
+    "knowledge_dependencies": {
+      "$ref": "#/$defs/GoalKnowledgeDependencies"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "default": "draft",
+      "enum": [
+        "draft",
+        "active",
+        "diagnosing",
+        "learning",
+        "transfer_testing",
+        "application_pending",
+        "achieved",
+        "paused",
+        "abandoned",
+        "needs_revalidation"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "target_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Date"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "goal_id",
+    "title",
+    "created_at"
+  ],
+  "title": "Goal",
+  "type": "object"
+}

@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "KnowledgeSnapshot": {
+      "additionalProperties": true,
+      "description": "学习对象创建时的知识版本快照：知识更新后据此检测过期。",
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSnapshotEvidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "note_hash": {
+          "title": "Note Hash",
+          "type": "string"
+        },
+        "note_id": {
+          "title": "Note Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "note_id",
+        "note_hash"
+      ],
+      "title": "KnowledgeSnapshot",
+      "type": "object"
+    },
+    "KnowledgeSnapshotEvidence": {
+      "additionalProperties": true,
+      "description": "LearningObject 绑定的证据引用（§6.5）。",
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "span_hash": {
+          "title": "Span Hash",
+          "type": "string"
+        },
+        "version_id": {
+          "title": "Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "source_id",
+        "version_id",
+        "span_hash"
+      ],
+      "title": "KnowledgeSnapshotEvidence",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/learning-object.schema.json",
+  "additionalProperties": true,
+  "description": "40 Learning/Objects/{id}.yaml。",
+  "properties": {
+    "activity_type": {
+      "default": "explain",
+      "enum": [
+        "recall",
+        "explain",
+        "discriminate",
+        "apply",
+        "near_transfer",
+        "far_transfer",
+        "real_application"
+      ],
+      "title": "Activity Type",
+      "type": "string"
+    },
+    "capability_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability Id"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Created At"
+    },
+    "created_by": {
+      "default": "user_and_ai",
+      "enum": [
+        "user",
+        "agent",
+        "user_and_ai"
+      ],
+      "title": "Created By",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "goal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Goal Id"
+    },
+    "importance": {
+      "default": "medium",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Importance",
+      "type": "string"
+    },
+    "knowledge_snapshot": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/KnowledgeSnapshot"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "knowledge_type": {
+      "default": "conceptual",
+      "enum": [
+        "fact",
+        "conceptual",
+        "procedural"
+      ],
+      "title": "Knowledge Type",
+      "type": "string"
+    },
+    "learning_object_id": {
+      "title": "Learning Object Id",
+      "type": "string"
+    },
+    "prompt": {
+      "title": "Prompt",
+      "type": "string"
+    },
+    "rubric": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rubric",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "paused",
+        "retired",
+        "needs_review"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "learning_object_id",
+    "title",
+    "prompt"
+  ],
+  "title": "LearningObject",
+  "type": "object"
+}

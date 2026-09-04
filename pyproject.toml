@@ -1,0 +1,82 @@
+[project]
+name = "learning-wiki"
+version = "0.1.0"
+description = "学习型 LLM Wiki 个人知识库系统核心（lw）：不可变来源版本、证据锚点、按需沉淀、闭卷学习"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = { text = "MIT" }
+dependencies = [
+    "typer>=0.12",
+    "rich>=13.7",
+    "pydantic>=2.9",
+    "ruamel.yaml>=0.18",
+    "python-ulid>=2.7",
+    "jieba>=0.42",
+    "httpx>=0.27",
+    "trafilatura>=1.12",
+    "mcp>=2.0",
+]
+
+[project.scripts]
+lw = "learning_wiki.cli.app:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+    "mypy>=1.13",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["python/learning_wiki"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["python"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["python", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",       # pycodestyle / pyflakes
+    "I",                 # isort
+    "B",                 # bugbear
+    "UP",                # pyupgrade
+    "SIM",               # simplify
+    "RUF",
+]
+ignore = [
+    "SIM108",     # 三元表达式替换 if/else 有时降低可读性
+    "RUF001",     # 中文代码库：全角标点「误报」为歧义 Unicode
+    "RUF002",
+    "RUF003",
+    "B008",       # typer 的 Option/Argument 默认值惯用法
+]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "python"
+packages = ["learning_wiki"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+check_untyped_defs = true
+
+# domain 与 application 是纯领域层，执行 strict；外围（IO/CLI）放宽
+[[tool.mypy.overrides]]
+module = ["learning_wiki.domain.*", "learning_wiki.application.*"]
+disallow_untyped_defs = true
+disallow_any_generics = true
+warn_return_any = true
+
+[[tool.mypy.overrides]]
+module = ["trafilatura.*", "jieba.*", "httpcore.*"]
+ignore_missing_imports = true

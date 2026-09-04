@@ -1,0 +1,174 @@
+{
+  "$defs": {
+    "SearchHit": {
+      "additionalProperties": true,
+      "properties": {
+        "content_type": {
+          "default": "source",
+          "enum": [
+            "source",
+            "wiki",
+            "user_note",
+            "ai_inference"
+          ],
+          "title": "Content Type",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "source_version",
+            "wiki_note"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "match_reason": {
+          "default": "",
+          "title": "Match Reason",
+          "type": "string"
+        },
+        "matched_evidence_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matched Evidence Id"
+        },
+        "matched_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matched Text"
+        },
+        "note_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note Id"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred At"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "version_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version Id"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "SearchHit",
+      "type": "object"
+    }
+  },
+  "$id": "https://learning-wiki.local/schemas/search-response.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "hits": {
+      "items": {
+        "$ref": "#/$defs/SearchHit"
+      },
+      "title": "Hits",
+      "type": "array"
+    },
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "query_type": {
+      "enum": [
+        "exact",
+        "source_local",
+        "conceptual",
+        "temporal",
+        "personal",
+        "action"
+      ],
+      "title": "Query Type",
+      "type": "string"
+    },
+    "trace": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Trace",
+      "type": "array"
+    }
+  },
+  "required": [
+    "query",
+    "query_type"
+  ],
+  "title": "SearchResponse",
+  "type": "object"
+}
