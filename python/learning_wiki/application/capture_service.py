@@ -17,8 +17,8 @@ from typing import Literal
 
 from learning_wiki.adapters.capture.plain_text import PlainTextAdapter
 from learning_wiki.adapters.capture.text_file import TextFileAdapter
-from learning_wiki.adapters.capture.web import GenericWebAdapter
 from learning_wiki.adapters.executor.local_fsync import SafeFileWriter
+from learning_wiki.adapters.ingestion.dispatcher import IngestionDispatcher
 from learning_wiki.domain import hashing, ids
 from learning_wiki.domain.clock import SystemClock
 from learning_wiki.domain.contracts import (
@@ -67,7 +67,7 @@ class CaptureService:
         conn: sqlite3.Connection,
         clock: SystemClock,
         writer: SafeFileWriter,
-        adapters: dict[str, PlainTextAdapter | TextFileAdapter | GenericWebAdapter] | None = None,
+        adapters: dict[str, PlainTextAdapter | TextFileAdapter | IngestionDispatcher] | None = None,
     ) -> None:
         self.paths = paths
         self.config = config
@@ -82,7 +82,8 @@ class CaptureService:
         self.adapters = adapters or {
             "text": PlainTextAdapter(),
             "file": TextFileAdapter(),
-            "url": GenericWebAdapter(store_html=config.capture.store_original_web_html),
+            # url 走接入层：路由平台适配器 → 通用网页降级
+            "url": IngestionDispatcher(),
         }
 
     # -- Inbox --------------------------------------------------------------
@@ -306,6 +307,10 @@ class CaptureService:
             "plain_text": "text",
             "text_file": "file",
             "trafilatura": "web",
+            "bili": "web",
+            "douyin": "web",
+            "xhs": "web",
+            "wechat": "web",
         }.get(extraction.extraction_method, "text")
 
     def _index_version(

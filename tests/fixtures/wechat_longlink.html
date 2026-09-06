@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta property="og:title" content="长链测试文章">
+<meta property="og:url" content="https://mp.weixin.qq.com/s?__biz=MzUxNjI3NTg4Mg==&mid=2247485512&idx=1&sn=abc123def456&chksm=zzz999&scene=21#rd">
+</head>
+<body>
+<div id="js_content">
+<p>这是从长链抓取的文章。</p>
+<p>第二段内容，验证 canonical 归一化能剥掉 chksm/scene/#rd。</p>
+</div>
+<a id="js_name">测试公众号</a>
+<script>
+// 长链页面：业务变量里 biz/mid/sn 通常为空，要从 URL 参数提
+var msg_title = '长链测试文章';
+var sn = '';
+var mid = '';
+var idx = '';
+</script>
+</body>
+</html>

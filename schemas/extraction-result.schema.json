@@ -93,6 +93,17 @@
       "title": "Extraction Quality",
       "type": "number"
     },
+    "media_kind": {
+      "default": "text",
+      "enum": [
+        "text",
+        "image",
+        "video",
+        "mixed"
+      ],
+      "title": "Media Kind",
+      "type": "string"
+    },
     "original_bytes": {
       "anyOf": [
         {
@@ -117,6 +128,18 @@
       ],
       "default": null,
       "title": "Original Filename"
+    },
+    "platform": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Platform"
     },
     "published_at": {
       "anyOf": [

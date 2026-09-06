@@ -67,6 +67,9 @@ class ExtractionResult(Contract):
     blocks: list[RawBlock] = Field(default_factory=list)
     # 受限来源（登录墙/反爬/验证码）时置 True，content_markdown 为空
     blocked_reason: str | None = None
+    # 接入层扩展：来源平台（douyin/xhs/bili/wechat/generic）与媒体形态
+    platform: str | None = None
+    media_kind: Literal["text", "image", "video", "mixed"] = "text"
 
 
 # ---------------------------------------------------------------------------
