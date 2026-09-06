@@ -35,6 +35,18 @@ class CaptureBlockedError(Exception):
         super().__init__(reason)
 
 
+class PermanentCaptureError(CaptureBlockedError):
+    """平台适配器已确认该来源**不可自动提取**，通用兜底无意义的失败。
+
+    与基类的区别：基类表示"我这条路没走通，也许通用提取还能救"，
+    本类表示"我认得这个来源，缺的是凭证（xsec_token / 登录态），
+    换通用提取只会拿到 JS 空壳，必然失败"。
+
+    接入层降级链对本类直接上抛，把可行动的原因原样交给用户，
+    而不是退化成一句无信息量的"无法提取正文"。
+    """
+
+
 def block_reason(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> str | None:
     """返回该 IP 应被拦截的原因；None 表示放行。"""
     if isinstance(ip, ipaddress.IPv6Address):
@@ -120,11 +132,11 @@ class GuardedFetcher:
 
     # -- 抓取 ---------------------------------------------------------------
 
-    def fetch(self, url: str) -> FetchedPage:
+    def fetch(self, url: str, headers: dict[str, str] | None = None) -> FetchedPage:
         current = url
         history: list[str] = []
         for _ in range(self.max_redirects + 1):
-            page, redirect = self._fetch_once(current)
+            page, redirect = self._fetch_once(current, headers)
             if redirect is None:
                 page.history = history
                 return page
@@ -132,7 +144,9 @@ class GuardedFetcher:
             current = str(httpx.URL(current).join(redirect))
         raise CaptureBlockedError(f"重定向超过 {self.max_redirects} 次")
 
-    def _fetch_once(self, url: str) -> tuple[FetchedPage, str | None]:
+    def _fetch_once(
+        self, url: str, headers: dict[str, str] | None = None
+    ) -> tuple[FetchedPage, str | None]:
         u = httpx.URL(url)
         if u.scheme not in ("http", "https"):
             raise SSRFBlockedError(url, f"不允许的 scheme: {u.scheme}")
@@ -154,7 +168,7 @@ class GuardedFetcher:
                 with client.stream(
                     "GET",
                     pinned,
-                    headers={"User-Agent": USER_AGENT, "Host": netloc},
+                    headers={"User-Agent": USER_AGENT, "Host": netloc, **(headers or {})},
                     extensions={"sni_hostname": u.host},
                 ) as resp:
                     if resp.status_code in (301, 302, 303, 307, 308):

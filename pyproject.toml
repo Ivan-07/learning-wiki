@@ -78,5 +78,7 @@ disallow_any_generics = true
 warn_return_any = true
 
 [[tool.mypy.overrides]]
-module = ["trafilatura.*", "jieba.*", "httpcore.*"]
+# 无类型存根的第三方库：trafilatura/jieba/lxml 是解析与检索依赖，
+# faster_whisper 是 ASR 的可选依赖（不进主依赖，用时才装）
+module = ["trafilatura.*", "jieba.*", "httpcore.*", "lxml.*", "faster_whisper.*"]
 ignore_missing_imports = true
